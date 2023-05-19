@@ -1,0 +1,48 @@
+@model List<Exam_3.Models.Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+
+<div class="text-center">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Mechanic</th>
+            <th>Model</th>
+            <th>Visit count</th>
+            <th>Link</th>
+        </tr>
+        @if (Model.Count != 0)
+        {
+            @foreach (Car car in Model)
+            {
+                <tr>
+                    <th>@car.Id</th>
+                    <th>
+                        @{
+                            Dictionary<string, string> mechanicId = new Dictionary<string, string>() { { "id",car.MechanicId!.ToString()! } };
+                            <a class="btn btn-success" asp-area="" asp-controller="Home" asp-action="GetUser" asp-all-route-data="mechanicId">@car.MechanicId</a>
+                        }
+                    </th>
+                    <th>@car.Model</th>
+                    <th>
+                        @car.VisitIds.Count
+                    </th>
+                    <th>
+                        @if (car.VisitIds.Count != 0)
+                        {
+                            Dictionary<string, string> data = new Dictionary<string, string>() { { "car_id", car.Id.ToString() } };
+                            <a class="btn btn-success" asp-controller="Home" asp-action="GetCarVisits" asp-all-route-data="data">to Visits</a>
+                        }
+                        @if (car.VisitIds.Count == 0)
+                        {
+                            <b>NAN</b>
+                        }
+                    </th>
+                </tr>
+            }
+        }
+    </table>
+</div>

@@ -1,0 +1,38 @@
+@model List<Exam_3.Models.Visit>
+
+@{
+    ViewData["Title"] = "Visits";
+}
+
+
+<div class="text-center">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Car</th>
+            <th>Date</th>
+        </tr>
+        @if (Model.Count != 0)
+        {
+            @foreach (Visit visit in Model)
+            {
+                <tr>
+                    <th>@visit.Id</th>
+                    <th>
+                        @{
+                            Dictionary<string, string> carId = new Dictionary<string, string>() { { "car_id", visit.CarId!.ToString()! } };
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetCar" asp-all-route-data="carId">to the Car</a>
+                        }
+                    </th>
+                    <th>
+                        @{
+                            DateTime dt = new(visit.Ticks);
+                            string date = dt.ToLongDateString() + " " + dt .ToLongTimeString();
+                        }
+                        @date
+                    </th>
+                </tr>
+            }
+        }
+    </table>
+</div>

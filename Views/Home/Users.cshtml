@@ -1,0 +1,31 @@
+@model List<Exam_3.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+
+<div class="text-center">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Is Mechanic</th>
+            <th>Owned Cars</th>
+        </tr>
+        @if (Model.Count != 0)
+        {
+            @foreach (User user in Model)
+            {
+                <tr>
+                    <th>@user.Id</th>
+                    <th>@user.Username</th>
+                    <th>@user.Password</th>
+                    <th>@user.IsMechanic</th>
+                    <th>@user.Cars.Count</th>
+                </tr>
+            }
+        }
+    </table>
+</div>
